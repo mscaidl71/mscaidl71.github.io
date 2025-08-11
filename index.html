@@ -1,9 +1,111 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Not Found</title>
-  </head>
-  <body>
-    <h1>Ooops... page not found</h1>
-  </body>
-</html> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>❤️ Hearts for You ❤️</title>
+    <style>
+        body {
+            background: #fafafa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        #hearts {
+            position: relative;
+            height: 300px;
+            border: 1px solid #eee;
+            margin: 0 auto 30px auto;
+            width: 90%;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 32px;
+            animation: float 5s ease-in-out infinite;
+            pointer-events: none;
+            /* clicks pass through */
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-120px) rotate(-360deg);
+                opacity: 0;
+            }
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background: #e91e63;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        button:hover {
+            background: #c2185b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Send a Heart to <strong>My Lovely GF</strong></h1>
+
+    <div id="hearts"></div>
+
+    <button id="sendBtn">💝 Send a Heart!</button>
+
+    <script>
+        const heartsDiv = document.getElementById('hearts');
+        const btn = document.getElementById('sendBtn');
+        const heartEmojis = ['💖', '🧡', '💗', '💙', '💜', '❣️', '❤️'];
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        btn.addEventListener('click', () => {
+            // Create a new heart element
+            const heart = document.createElement('span');
+            heart.className = 'heart';
+            heart.textContent = heartEmojis[randomInt(0, heartEmojis.length - 1)];
+
+            // Random horizontal starting position
+            heart.style.left = randomInt(0, heartsDiv.clientWidth - 40) + 'px';
+            heart.style.top = randomInt(0, heartsDiv.clientHeight - 40) + 'px';
+
+            // Optional: random color
+            const colors = ['#e91e63', '#ff4081', '#ff80ab', '#f48fb1', '#bd1a2f', '#c62828'];
+            heart.style.color = colors[randomInt(0, colors.length - 1)];
+
+            // Append and then remove after animation completes
+            heartsDiv.appendChild(heart);
+
+            setTimeout(() => heartsDiv.removeChild(heart), 5000); // 5 s matches CSS animation
+        });
+    </script>
+
+</body>
+
+</html>
